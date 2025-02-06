@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Me & Door Code App</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+        }
+
+        h1 {
+            color: green;
+            border: 2px solid green;
+            padding: 10px;
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+            text-align: left;
+            padding: 10px;
+        }
+
+        th {
+            background-color: #f4f4f4;
+        }
+
+        ul {
+            list-style-type: none;
+        }
+
+        ul li a {
+            color: rgb(9, 62, 25);
+            text-decoration: none;
+        }
+
+        ul li a:hover {
+            text-decoration: underline;
+        }
+
+        /* Door styles */
+        #door {
+            width: 100px;
+            height: 200px;
+            margin: 20px auto;
+            background-color: black;
+            border: 2px solid #000;
+            transition: transform 0.5s ease; /* Smooth animation for opening/closing */
+        }
+
+        .door-opened {
+            transform: rotateY(30deg); /* Rotate to symbolize an open door */
+        }
+
+        .keypad {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        button {
+            margin: 5px;
+            padding: 10px 15px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <!-- About Me Section -->
+    <h1>About Me</h1>
+    <p>I'm Alexandra Martinez, and I'm from Tijuana, Mexico. I am a second-year student, and I enjoy reading. Currently, I am reading <i>The Art Thief</i> by Michael Finkel.</p>
+    <img src="Screenshot 2025-01-21 152621.png" alt="Picture of me" width="600">
+
+    <!-- Classes Section -->
+    <h1>Here Are My Classes!</h1>
+    <table>
+        <tr>
+            <th>Course</th>
+            <th>Instructor</th>
+            <th>Room</th>
+            <th>Building</th>
+        </tr>
+        <tr>
+            <td>Intro to Computer Science</td>
+            <td>Susan Perry and Claudia Roda</td>
+            <td>C-505</td>
+            <td>Combes</td>
+        </tr>
+        <tr>
+            <td>Discrete Maths</td>
+            <td>Bakul Sathaye</td>
+            <td>PL-4</td>
+            <td>Passage Landrieu</td>
+        </tr>
+        <tr>
+            <td>Intro to Computer Science 2</td>
+            <td>Marco Pascucci</td>
+            <td>Q-601</td>
+            <td>Quai</td>
+        </tr>
+    </table>
+
+    <!-- Favorite Links Section -->
+    <h2>Relative URLs</h2>
+    <p>Here are some links to my favorite websites:</p>
+    <ul>
+        <li><a href="https://github.com/alexandra-martinez/CS-3051-SP25-Assignments" target="_blank">My GitHub</a></li>
+        <li><a href="https://pinterest.com" target="_blank">Visit Pinterest</a></li>
+        <li><a href="https://youtube.com" target="_blank">Visit YouTube</a></li>
+        <li><a href="https://npr.org" target="_blank">Visit NPR</a></li>
+    </ul>
+
+    <!-- Door Code Web App Section -->
+    <h1>Door Code Web App</h1>
+    <p>Press the buttons in the correct order to unlock the door:</p>
+
+    <!-- Door Display -->
+    <div id="door"></div>
+
+    <!-- Keypad Buttons -->
+    <div class="keypad">
+        <button onclick="addToCode(1)">1</button>
+        <button onclick="addToCode(2)">2</button>
+        <button onclick="addToCode(3)">3</button>
+    </div>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // Correct sequence to unlock the door
+        let codeSequence = [1, 2, 3];
+        let userInput = []; // Tracks user input
+
+        // Function to handle button press
+        function addToCode(num) {
+            userInput.push(num);
+
+            // Check if user input matches the code
+            if (userInput.length === codeSequence.length) {
+                if (JSON.stringify(userInput) === JSON.stringify(codeSequence)) {
+                    unlockDoor(); // Unlock door if code is correct
+                } else {
+                    alert('Incorrect code. Try again!');
+                    userInput = []; // Reset user input
+                }
+            }
+        }
+
+        // Unlock the door
+        function unlockDoor() {
+            const door = document.querySelector('#door');
+            door.classList.add('door-opened'); // Rotate the door to open it
+            alert('Door Unlocked!');
+            setTimeout(() => {
+                door.classList.remove('door-opened'); // Reset to closed door
+                userInput = []; // Reset user input
+            }, 3000); // Re-lock door after 3 seconds
+        }
+    </script>
+</body>
+</html>
