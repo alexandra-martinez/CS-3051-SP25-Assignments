@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>To-Do List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+        }
+        h1 {
+            font-size: 24px;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            display: flex;
+            align-items: center;
+            margin: 8px 0;
+        }
+        input[type="checkbox"] {
+            margin-right: 10px;
+        }
+        .completed {
+            text-decoration: line-through;
+            color: grey;
+        }
+        .delete {
+            margin-left: 10px;
+            color: red;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>My To-Do List</h1>
+    <ul id="todo-list"></ul>
+
+    <input type="text" id="new-item" placeholder="Add new task">
+    <button onclick="addItem()">Add</button>
+
+    <script src="script.js"></script>
+</body>
+</html>
