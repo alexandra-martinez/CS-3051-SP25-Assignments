@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Haters of the Week - Hater Scale</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Georgia', serif;
+      background: url('a43069c8-a2e2-454d-88c4-b4a20ca381c2.png') no-repeat center center fixed;
+      background-size: cover;
+      color: #ff4a3d;
+      text-align: center;
+    }
+    .title {
+      font-size: 3em;
+      margin-top: 30px;
+    }
+    .rankings {
+      margin-top: 60px;
+      font-size: 1.8em;
+    }
+    .rankings li {
+      margin: 15px 0;
+      list-style-type: none;
+    }
+    .back-link {
+      margin-top: 40px;
+      display: inline-block;
+      font-size: 1.2em;
+      color: #ffd4b5;
+      text-decoration: none;
+    }
+    .back-link:hover {
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+  <div class="title">HATERS OF THE WEEK</div>
+  <ul class="rankings" id="rankingsList">
+    <li>Ivonne - 0</li>
+    <li>Antonio Sr - 0</li>
+    <li>Octavio - 0</li>
+    <li>Tayo - 0</li>
+    <li>Ale - 0</li>
+    <li>Pina - 0</li>
+    <li>Tonito - 0</li>
+    <li>Frida - 0</li>
+    <li>Mely - 0</li>
+    <li>Vivi - 0</li>
+    <li>Vera - 0</li>
+    <li>Laz - 0</li>
+    <li>Mario - 0</li>
+    <li>Dwayne - 0</li>
+    <li>Vivian - 0</li>
+    <li>Ariadna - 0</li>
+    <li>Linda - 0</li>
+  </ul>
+  <a class="back-link" href="index.html">Back to Home</a>
+
+  <script>
+    const rankings = JSON.parse(localStorage.getItem('haterVotes')) || {};
+    const list = document.getElementById('rankingsList');
+
+    const sorted = Object.entries(rankings).sort((a, b) => b[1] - a[1]);
+    if (sorted.length > 0) {
+      list.innerHTML = '';
+      sorted.forEach(([name, votes]) => {
+        if (votes >= 5) {
+          const li = document.createElement('li');
+          li.textContent = `${name} - ${votes}`;
+          list.appendChild(li);
+        }
+      });
+    }
+  </script>
+</body>
+</html>

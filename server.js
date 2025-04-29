@@ -1,55 +1,48 @@
+// server.js
+
 const express = require('express');
-const sqlite3 = require('sqlite3').verbose();
-const path = require('path');
-
+const fs = require('fs');
+const cors = require('cors');
 const app = express();
-const db = new sqlite3.Database('./db.sqlite');
-
-app.use(express.json());
-app.use(express.static(path.join(__dirname, 'public')));
-
-// Create table if not exists
-db.run(`CREATE TABLE IF NOT EXISTS todos (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    task TEXT NOT NULL,
-    completed INTEGER DEFAULT 0
-)`);
-
-// Get all todos
-app.get('/todos', (req, res) => {
-    db.all("SELECT * FROM todos", (err, rows) => {
-        if (err) return res.status(500).json({ error: err.message });
-        res.json(rows);
-    });
-});
-
-// Add new todo
-app.post('/todos', (req, res) => {
-    const { task } = req.body;
-    db.run("INSERT INTO todos (task) VALUES (?)", [task], function (err) {
-        if (err) return res.status(500).json({ error: err.message });
-        res.json({ id: this.lastID, task, completed: 0 });
-    });
-});
-
-// Delete a todo
-app.delete('/todos/:id', (req, res) => {
-    db.run("DELETE FROM todos WHERE id = ?", [req.params.id], function (err) {
-        if (err) return res.status(500).json({ error: err.message });
-        res.sendStatus(200);
-    });
-});
-
-// Toggle complete
-app.put('/todos/:id', (req, res) => {
-    const { completed } = req.body;
-    db.run("UPDATE todos SET completed = ? WHERE id = ?", [completed ? 1 : 0, req.params.id], function (err) {
-        if (err) return res.status(500).json({ error: err.message });
-        res.sendStatus(200);
-    });
-});
-
 const PORT = 3000;
+
+// Middleware
+app.use(cors());
+app.use(express.json());
+app.use(express.static('public')); // Serve your HTML/CSS/JS from "public" folder
+
+// Load or initialize votes
+let votes = {};
+const VOTES_FILE = './votes.json';
+
+if (fs.existsSync(VOTES_FILE)) {
+  votes = JSON.parse(fs.readFileSync(VOTES_FILE));
+} else {
+  votes = {
+    "Ivonne": 0, "Antonio Sr": 0, "Octavio": 0, "Tayo": 0, "Ale": 0,
+    "Pina": 0, "Tonito": 0, "Frida": 0, "Mely": 0, "Vivi": 0, "Vera": 0,
+    "Laz": 0, "Mario": 0, "Dwayne": 0, "Vivian": 0, "Ariadna": 0, "Linda": 0
+  };
+  fs.writeFileSync(VOTES_FILE, JSON.stringify(votes, null, 2));
+}
+
+// Routes
+app.get('/votes', (req, res) => {
+  res.json(votes);
+});
+
+app.post('/vote', (req, res) => {
+  const { member } = req.body;
+  if (votes.hasOwnProperty(member)) {
+    votes[member]++;
+    fs.writeFileSync(VOTES_FILE, JSON.stringify(votes, null, 2));
+    res.json({ success: true, message: `Vote recorded for ${member}` });
+  } else {
+    res.status(400).json({ success: false, message: 'Invalid member name' });
+  }
+});
+
+// Start server
 app.listen(PORT, () => {
-    console.log(`✅ Server is running at http://localhost:${PORT}`);
+  console.log(`Server running on http://localhost:${PORT}`);
 });

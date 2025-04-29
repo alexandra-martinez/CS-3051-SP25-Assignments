@@ -1,46 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>To-Do List</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 40px;
-        }
-        h1 {
-            font-size: 24px;
-        }
-        ul {
-            list-style: none;
-            padding: 0;
-        }
-        li {
-            display: flex;
-            align-items: center;
-            margin: 8px 0;
-        }
-        input[type="checkbox"] {
-            margin-right: 10px;
-        }
-        .completed {
-            text-decoration: line-through;
-            color: grey;
-        }
-        .delete {
-            margin-left: 10px;
-            color: red;
-            cursor: pointer;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Voting - Hater Scale</title>
+  <style>
+    body {
+      font-family: 'Georgia', serif;
+      background-color: black;
+      background-image: url('fe2ecb15-a121-4e2e-a8be-ad43ba13e336.png');
+      background-size: cover;
+      color: #ff4a3d;
+      text-align: center;
+      margin: 0;
+      padding: 40px 20px;
+    }
+    h1 {
+      font-size: 3em;
+    }
+    form {
+      margin-top: 30px;
+    }
+    select, button {
+      font-size: 1.2em;
+      padding: 10px;
+      margin: 10px;
+    }
+    .back-link {
+      display: inline-block;
+      margin-top: 40px;
+      font-size: 1.2em;
+      color: #ffd4b5;
+      text-decoration: none;
+    }
+    .back-link:hover {
+      color: #fff;
+    }
+  </style>
 </head>
 <body>
-    <h1>My To-Do List</h1>
-    <ul id="todo-list"></ul>
+  <h1>Vote for the Weekly Hater</h1>
+  <form id="voteForm">
+    <label for="member">Select a family member:</label><br>
+    <select id="member" name="member">
+      <option value="Ivonne">Ivonne</option>
+      <option value="Antonio Sr">Antonio Sr</option>
+      <option value="Octavio">Octavio</option>
+      <option value="Tayo">Tayo</option>
+      <option value="Ale">Ale</option>
+      <option value="Pina">Pina</option>
+      <option value="Tonito">Tonito</option>
+      <option value="Frida">Frida</option>
+      <option value="Mely">Mely</option>
+      <option value="Vivi">Vivi</option>
+      <option value="Vera">Vera</option>
+      <option value="Laz">Laz</option>
+      <option value="Mario">Mario</option>
+      <option value="Dwayne">Dwayne</option>
+      <option value="Vivian">Vivian</option>
+      <option value="Ariadna">Ariadna</option>
+      <option value="Linda">Linda</option>
+    </select><br>
+    <button type="submit">Vote</button>
+  </form>
+  <a class="back-link" href="home.html">Back to Home</a>
 
-    <input type="text" id="new-item" placeholder="Add new task">
-    <button onclick="addItem()">Add</button>
-
-    <script src="script.js"></script>
+  <script>
+    const form = document.getElementById('voteForm');
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const selected = document.getElementById('member').value;
+      let votes = JSON.parse(localStorage.getItem('haterVotes')) || {};
+      votes[selected] = (votes[selected] || 0) + 1;
+      localStorage.setItem('haterVotes', JSON.stringify(votes));
+      alert(`You voted for ${selected}!`);
+    });
+  </script>
 </body>
 </html>
