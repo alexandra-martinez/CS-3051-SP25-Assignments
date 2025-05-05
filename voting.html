@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vote - Hater Scale</title>
+  <style>
+    body {
+      font-family: 'Georgia', serif;
+      background: url('firestock.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: #ff4a3d;
+      text-align: center;
+      margin: 0;
+      padding: 40px;
+    }
+    h1 {
+      margin-top: 30px;
+      font-size: 3em;
+    }
+    form {
+      margin-top: 30px;
+    }
+    select, button {
+      font-size: 1.2em;
+      padding: 10px;
+      margin: 10px;
+    }
+    .back-link {
+      display: block;
+      margin-top: 40px;
+      font-size: 1.2em;
+      color: #ffd4b5;
+    }
+    .back-link:hover {
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Vote for the Weekly Hater</h1>
+
+  <form id="voteForm">
+    <label for="member">Select a family member:</label><br>
+    <select id="member">
+      <option value="">Select...</option>
+      <option>Ivonne</option><option>Antonio Sr</option><option>Octavio</option><option>Tayo</option>
+      <option>Ale</option><option>Pina</option><option>Tonito</option><option>Frida</option>
+      <option>Mely</option><option>Vivi</option><option>Vera</option><option>Laz</option>
+      <option>Mario</option><option>Dwayne</option><option>Vivian</option><option>Ariadna</option><option>Linda</option>
+    </select><br>
+    <button type="submit">Vote</button>
+  </form>
+
+  <a class="back-link" href="index.html">Back to Home</a>
+
+  <script>
+    document.getElementById('voteForm').addEventListener('submit', async function(event) {
+      event.preventDefault();
+      const member = document.getElementById('member').value;
+      if (!member) {
+        alert('Please select a family member.');
+        return;
+      }
+      try {
+        const response = await fetch('/vote', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ member })
+        });
+        const result = await response.json();
+        if (result.success) {
+          alert(`Vote submitted for ${member}!`);
+        } else {
+          alert('Failed to submit vote.');
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        alert('Error connecting to server.');
+      }
+    });
+  </script>
+
+</body>
+</html>
