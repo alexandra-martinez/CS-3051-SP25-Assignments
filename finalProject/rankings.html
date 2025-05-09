@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Rankings - Hater Scale</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>Haters of the Week</h1>
+    <ul id="rankingList"></ul>
+    <div class="nav">
+      <a href="home.html">Back to Home</a>
+    </div>
+  </div>
+
+  <script>
+    if (localStorage.getItem('isLoggedIn') !== 'true') {
+      window.location.href = 'login.html';
+    }
+
+    function loadRankings() {
+      const allVotes = JSON.parse(localStorage.getItem('userVotes')) || {};
+      const voteCounts = {};
+
+      // Aggregate votes across all users
+      for (const user in allVotes) {
+        for (const person in allVotes[user]) {
+          voteCounts[person] = (voteCounts[person] || 0) + allVotes[user][person];
+        }
+      }
+
+      const sorted = Object.entries(voteCounts).sort((a, b) => b[1] - a[1]);
+      const list = document.getElementById('rankingList');
+      list.innerHTML = '';
+
+      if (sorted.length === 0) {
+        list.innerHTML = "<li>No votes yet!</li>";
+        return;
+      }
+
+      sorted.forEach(([name, count], i) => {
+        const li = document.createElement('li');
+        li.textContent = `${i + 1}. ${name} — ${count} vote${count !== 1 ? 's' : ''}`;
+        list.appendChild(li);
+      });
+    }
+
+    loadRankings();
+  </script>
+</body>
+</html>

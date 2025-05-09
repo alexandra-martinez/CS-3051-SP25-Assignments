@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        h1 {
+            font-size: 24px;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            display: flex;
+            align-items: center;
+            margin: 5px 0;
+        }
+        input[type="checkbox"] {
+            margin-right: 10px;
+        }
+        .completed {
+            text-decoration: line-through;
+            color: grey;
+        }
+        .delete {
+            margin-left: 10px;
+            color: red;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>My To-do List</h1>
+    <ul id="todo-list">
+        <li><input type="checkbox" onchange="toggleComplete(this)"> Gym <span class="delete" onclick="deleteItem(this)">X</span></li>
+        <li><input type="checkbox" onchange="toggleComplete(this)"> Homework <span class="delete" onclick="deleteItem(this)">X</span></li>
+        <li><input type="checkbox" onchange="toggleComplete(this)"> Cleaning the house <span class="delete" onclick="deleteItem(this)">X</span></li>
+        <li><input type="checkbox" onchange="toggleComplete(this)"> Going to the market <span class="delete" onclick="deleteItem(this)">X</span></li>
+    </ul>
+    <input type="text" id="new-item" placeholder="Type a new to-do here">
+    <button onclick="addItem()">Add to-do</button>
+
+    <script>
+        function toggleComplete(checkbox) {
+            let listItem = checkbox.parentElement;
+            if (checkbox.checked) {
+                listItem.classList.add("completed");
+            } else {
+                listItem.classList.remove("completed");
+            }
+        }
+
+        function deleteItem(deleteButton) {
+            let listItem = deleteButton.parentElement;
+            listItem.remove();
+        }
+
+        function addItem() {
+            let input = document.getElementById("new-item");
+            let text = input.value.trim();
+            if (text === "") return;
+            
+            let list = document.getElementById("todo-list");
+            let listItem = document.createElement("li");
+            listItem.innerHTML = `<input type="checkbox" onchange="toggleComplete(this)"> ${text} <span class="delete" onclick="deleteItem(this)">X</span>`;
+            list.appendChild(listItem);
+            
+            input.value = "";
+        }
+    </script>
+</body>
+</html>

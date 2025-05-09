@@ -1,15 +1,64 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html>
 <head>
+<style>
+  body {
+    background-color: powderblue;
+    font-family: Arial, sans-serif;
+  }
+
+  h1 {
+    font-family: serif;
+    font-size: 250%;
+    color: SlateBlue;
+  }
+
+  h2 {
+    font-family: serif;
+    font-size: 200%;
+    color: SlateBlue;
+  }
+
+  a {
+    display: inline-block;
+    text-decoration: none;
+    color: white;
+    background-color: SlateBlue;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    margin: 5px;
+    transition: background-color 0.3s;
+  }
+
+  a:hover {
+    background-color: MediumSlateBlue;
+  }
+
+  img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200px;
+    height: 240px;
+  }
+</style>
 <title>About Me</title>
 </head>
 <body>
 
 <h1>Alexandra Martinez</h1>
-<p> home town: Tijuana, Mexico
-    </p>
-    <a href="https://github.com/alexandra-martinez/CS-3051-SP25-Assignments"></a>
-    <img src="Screenshot 2024-08-21004212.png"></body>
+<p>Home town: Tijuana, Mexico</p>
+
+<h2>Relative URLs</h2>
+<p>Here are some links to my favorite websites:</p>
+
+<a href="https://github.com/alexandra-martinez/CS-3051-SP25-Assignments" target="_blank">My GitHub</a>
+<a href="https://pinterest.com" target="_blank">Visit Pinterest</a>
+<a href="https://youtube.com" target="_blank">Visit YouTube</a>
+<a href="https://pinterest.com" target="_blank">Visit Pinterest</a>
+
+<img src="Screenshot 2024-08-21004212.png" alt="Picture of me">
 
 </body>
 </html>
