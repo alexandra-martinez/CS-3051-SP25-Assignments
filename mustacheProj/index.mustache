@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Mustache To-Do</title>
+</head>
+<body>
+  <h1>My To-Do List</h1>
+  <ul>
+    {{#todos}}
+      <li>{{task}}</li>
+    {{/todos}}
+    {{^todos}}
+      <li>No tasks yet!</li>
+    {{/todos}}
+  </ul>
+
+  <form method="POST" action="/add">
+    <input type="text" name="task" placeholder="New task" required />
+    <button type="submit">Add</button>
+  </form>
+</body>
+</html>
