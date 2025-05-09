@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>About Me - Grid</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<nav class="menu">
+    <a href="#" onclick="showContent('about')" class="active">About Me</a>
+    <a href="#" onclick="showContent('classes')">My Classes</a>
+    <a href="#" onclick="showContent('links')">Favorite Links</a>
+    <a href="#" onclick="showContent('door-game')">Door Code Game</a>
+    <a href="#" onclick="showContent('random-image')">Random Image</a>
+</nav>
+
+<main id="main-content">
+    <p>Click a menu item to load content.</p>
+</main>
+
+<script>
+    function fetchRandomImage() {
+        fetch('/random-image')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('randomPic').src = data.url;
+            })
+            .catch(err => console.error('Error:', err));
+    }
+</script>
+
+
+<script>
+    function showContent(section) {
+        fetch(`snippets/${section}.html`)
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById('main-content').innerHTML = html;
+            })
+            .catch(err => console.error('Error loading snippet:', err));
+
+        document.querySelectorAll('.menu a').forEach(link => link.classList.remove('active'));
+        document.querySelector(`[onclick="showContent('${section}')"]`).classList.add('active');
+    }
+</script>
+
+</body>
+</html>

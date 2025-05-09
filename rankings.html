@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rankings - Hater Scale</title>
+  <style>
+    body {
+      font-family: 'Georgia', serif;
+      background: url('firestock.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: #ff4a3d;
+      text-align: center;
+      margin: 0;
+      padding: 40px;
+    }
+    h1 {
+      margin-top: 30px;
+      font-size: 3em;
+    }
+    ul {
+      margin-top: 30px;
+      font-size: 1.8em;
+      list-style: none;
+      padding: 0;
+    }
+    li {
+      margin: 15px 0;
+    }
+    .back-link {
+      display: block;
+      margin-top: 40px;
+      font-size: 1.2em;
+      color: #ffd4b5;
+    }
+    .back-link:hover {
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Top Haters</h1>
+
+  <ul id="rankingsList"></ul>
+
+  <a class="back-link" href="index.html">Back to Home</a>
+
+  <script>
+    async function fetchRankings() {
+      try {
+        const response = await fetch('/votes');
+        const votes = await response.json();
+        const sorted = Object.entries(votes).sort((a, b) => b[1] - a[1]);
+        const list = document.getElementById('rankingsList');
+        sorted.forEach(([name, count]) => {
+          if (count >= 5) {
+            const li = document.createElement('li');
+            li.textContent = `${name} - ${count} votes`;
+            list.appendChild(li);
+          }
+        });
+      } catch (error) {
+        console.error('Error fetching rankings:', error);
+      }
+    }
+    fetchRankings();
+  </script>
+
+</body>
+</html>

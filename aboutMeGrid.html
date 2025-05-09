@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<link rel="stylesheet" href="styless.css">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Me - Grid</title>
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        function showContent(section) {
+            // Hide all sections
+            document.querySelectorAll('.content').forEach(content => content.style.display = 'none');
+            // Show selected section
+            document.getElementById(section).style.display = 'block';
+
+            // Highlight active menu item
+            document.querySelectorAll('.menu a').forEach(link => link.classList.remove('active'));
+            document.querySelector(`[onclick="showContent('${section}')"]`).classList.add('active');
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header>Alexandra Martinez - About Me</header>
+
+        <!-- Sidebar Menu -->
+        <nav class="menu">
+            <a href="#" onclick="showContent('about')" class="active">About Me</a>
+            <a href="#" onclick="showContent('classes')">My Classes</a>
+            <a href="#" onclick="showContent('links')">Favorite Links</a>
+            <a href="#" onclick="showContent('door-game')">Door Code Game</a>
+        </nav>
+
+        <!-- Main Content -->
+        <main>
+            <section id="about" class="content">
+                <h2>About Me</h2>
+                <p>I'm Alexandra Martinez, and I'm from Tijuana, Mexico. I am a second-year student, and I enjoy reading. Currently, I am reading <i>The Art Thief</i> by Michael Finkel.</p>
+                <img src="Screenshot 2025-01-21 152621.png" alt="Picture of me" width="600">
+            </section>
+
+            <section id="classes" class="content" style="display: none;">
+                <h2>My Classes</h2>
+                <table>
+                    <tr>
+                        <th>Course</th>
+                        <th>Instructor</th>
+                        <th>Room</th>
+                        <th>Building</th>
+                    </tr>
+                    <tr>
+                        <td>Intro to Computer Science</td>
+                        <td>Susan Perry and Claudia Roda</td>
+                        <td>C-505</td>
+                        <td>Combes</td>
+                    </tr>
+                    <tr>
+                        <td>Discrete Maths</td>
+                        <td>Bakul Sathaye</td>
+                        <td>PL-4</td>
+                        <td>Passage Landrieu</td>
+                    </tr>
+                    <tr>
+                        <td>Intro to Computer Science 2</td>
+                        <td>Marco Pascucci</td>
+                        <td>Q-601</td>
+                        <td>Quai</td>
+                    </tr>
+                </table>
+            </section>
+
+            <section id="links" class="content" style="display: none;">
+                <h2>Favorite Links</h2>
+                <ul>
+                    <li><a href="https://github.com/alexandra-martinez/CS-3051-SP25-Assignments" target="_blank">My GitHub</a></li>
+                    <li><a href="https://pinterest.com" target="_blank">Visit Pinterest</a></li>
+                    <li><a href="https://youtube.com" target="_blank">Visit YouTube</a></li>
+                    <li><a href="https://npr.org" target="_blank">Visit NPR</a></li>
+                </ul>
+            </section>
+
+            <section id="door-game" class="content" style="display: none;">
+                <h2>Door Code Web App</h2>
+                <p>Press the buttons in the correct order to unlock the door:</p>
+                <div id="door"></div>
+                <div class="keypad">
+                    <button onclick="addToCode(1)">1</button>
+                    <button onclick="addToCode(2)">2</button>
+                    <button onclick="addToCode(3)">3</button>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer>Copyright © 2025 Alexandra Martinez</footer>
+    </div>
+
+    <script>
+        let codeSequence = [1, 2, 3];
+        let userInput = [];
+
+        function addToCode(num) {
+            userInput.push(num);
+            if (userInput.length === codeSequence.length) {
+                if (JSON.stringify(userInput) === JSON.stringify(codeSequence)) {
+                    unlockDoor();
+                } else {
+                    alert('Incorrect code. Try again!');
+                    userInput = [];
+                }
+            }
+        }
+
+        function unlockDoor() {
+            const door = document.querySelector('#door');
+            door.classList.add('door-opened');
+            alert('Door Unlocked!');
+            setTimeout(() => {
+                door.classList.remove('door-opened');
+                userInput = [];
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

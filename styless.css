@@ -1,0 +1,106 @@
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    grid-template-rows: 60px auto 50px;
+    grid-template-areas:
+        "header header"
+        "menu main"
+        "footer footer";
+    height: 100vh;
+}
+
+header {
+    grid-area: header;
+    background-color: lightgreen;
+    text-align: center;
+    font-size: 24px;
+    padding: 15px;
+}
+
+.menu {
+    grid-area: menu;
+    background-color: beige;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.menu a {
+    text-decoration: none;
+    color: black;
+    padding: 10px;
+    margin: 5px 0;
+    display: block;
+}
+
+.menu a.active {
+    font-weight: bold;
+    background-color: darkgray;
+}
+
+main {
+    grid-area: main;
+    padding: 20px;
+}
+
+footer {
+    grid-area: footer;
+    background-color: lightblue;
+    text-align: center;
+    padding: 15px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid black;
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background-color: #f4f4f4;
+}
+
+#door {
+    width: 100px;
+    height: 200px;
+    margin: 20px auto;
+    background-color: black;
+    transition: transform 0.5s ease;
+}
+
+.door-opened {
+    transform: rotateY(30deg);
+}
+
+@media (max-width: 600px) {
+    .container {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "header"
+            "main"
+            "menu"
+            "footer";
+    }
+    
+    .menu {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+    }
+
+    .menu a {
+        padding: 5px;
+    }
+}

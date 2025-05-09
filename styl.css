@@ -1,0 +1,27 @@
+styl.css  
+body {
+    background-color: rgb(223, 231, 232);
+    font-family: Arial, sans-serif;
+}
+h1 {
+    font-family: serif;
+    font-size: 250%;
+    color: rgb(9, 62, 25);
+    border: 2px solid green;
+    padding: 10px;
+}
+h2 {
+    font-family: serif;
+    font-size: 200%;
+    color: rgb(9, 62, 25);
+    border: 2px solid green;
+    padding: 10px;
+}
+table, th, td {
+    border: 1px solid green;
+    border-collapse: collapse;
+    padding: 20px;
+}
+a {
+    color: rgb(9, 62, 25);
+}

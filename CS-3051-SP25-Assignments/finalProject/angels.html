@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Angels - Hater Scale</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="angels">
+  <div class="container">
+    <h1>THE ANGELS </h1>
+    <link rel="icon" href="data:,">
+    <p>These family members received 4 or fewer hater votes.</p>
+    <ul id="angelsList"></ul>
+    <div class="nav">
+      <a href="home.html">Back to Home</a>
+    </div>
+  </div>
+
+  <script>
+    if (localStorage.getItem('isLoggedIn') !== 'true') {
+  window.location.href = 'login.html';
+}
+async function fetchAngels() {
+  try {
+    const res = await fetch('/votes');
+    if (!res.ok) {
+      throw new Error(`HTTP error! Status: ${res.status}`);
+    }
+    const votes = await res.json();
+    console.log(votes); // Debugging: Check the structure of the votes object
+    const angels = Object.entries(votes).filter(([_, count]) => count <= 4);
+    const list = document.getElementById('angelsList');
+
+    if (angels.length === 0) {
+      list.innerHTML = "<li>Everyone's a hater this week 😈</li>";
+    } else {
+      angels.forEach(([name, count]) => {
+        const li = document.createElement('li');
+        li.textContent = `${name} - ${count} vote${count !== 1 ? 's' : ''}`;
+        list.appendChild(li);
+      });
+    }
+  } catch (err) {
+    console.error('Error fetching angels:', err);
+    document.getElementById('angelsList').innerHTML = '<li>Error loading angels.</li>';
+  }
+}
+
+    fetchAngels();
+  </script>
+</body>
+</html>

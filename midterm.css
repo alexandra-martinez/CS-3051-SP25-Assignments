@@ -1,0 +1,22 @@
+#my5x4grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); 
+    grid-template-rows: repeat(4, 1fr); 
+    gap: 5px; 
+    width: 100vw; 
+    max-width: 900px; 
+    height: 500px; 
+    background-color: #EEE;
+    border: 2px solid black;
+    margin: auto; 
+}
+
+#my5x4grid div {
+    background-color: purple;
+    border: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    min-height: 80px; 
+}
